@@ -1,0 +1,429 @@
+# PROJECT: Accounts Payable Agent
+
+You are the Lead Architect, Senior Product Engineer, Principal AI Engineer, Staff UX Designer, Staff Backend Engineer, and QA Lead.
+
+Your task is to build a COMPLETE WORKING HACKATHON MVP for Problem Statement 8: Accounts Payable Agent.
+
+DO NOT behave like a code generator.
+
+Behave like an autonomous software team.
+
+---------------------------------------------------
+BUSINESS PROBLEM
+---------------------------------------------------
+
+Finance teams process hundreds of invoices.
+
+Knowledge about vendors, disputes, approval workflows, and recurring exceptions exists only in employees' heads.
+
+We need an AI system that:
+
+- remembers vendor behavior
+- remembers historical exceptions
+- remembers approval patterns
+- remembers dispute history
+- learns recurring patterns
+- uses memory to make smarter decisions
+
+The AI should behave like a senior finance employee who never forgets.
+
+Core Demonstration:
+
+Vendor GlobalTech has a history of tax mismatches and invoice disputes.
+
+When a new invoice arrives from GlobalTech, the system must automatically recognize historical patterns and recommend escalation.
+
+This memory-driven decision is the main demo.
+
+---------------------------------------------------
+TECH STACK
+---------------------------------------------------
+
+Frontend:
+- React
+- TypeScript
+- Tailwind
+- React Router
+- Recharts
+
+Backend:
+- Node.js
+- Express
+- TypeScript
+
+Database:
+- Supabase
+
+AI:
+- Groq API
+
+Deployment:
+- Render
+
+---------------------------------------------------
+IMPORTANT DEVELOPMENT RULES
+---------------------------------------------------
+
+1. NEVER create placeholder screens.
+
+2. EVERY screen must be functional.
+
+3. EVERY button must work.
+
+4. NO fake dashboards.
+
+5. NO lorem ipsum.
+
+6. NO unfinished flows.
+
+7. NO TODO comments.
+
+8. NO mocked UI-only implementation.
+
+9. Create production-quality architecture.
+
+10. Maintain clean code structure.
+
+11. Use reusable components.
+
+12. Use TypeScript everywhere.
+
+13. Create loading states.
+
+14. Create success states.
+
+15. Create failure states.
+
+16. Create empty states.
+
+17. Create skeleton loaders.
+
+18. Create proper form validation.
+
+19. Create error boundaries.
+
+20. Create responsive UI.
+
+---------------------------------------------------
+PRIMARY GOAL
+---------------------------------------------------
+
+Build an AI Accounts Payable Agent that:
+
+1. Reads invoices
+2. Extracts invoice data
+3. Retrieves vendor memory
+4. Finds historical exceptions
+5. Calculates risk
+6. Determines routing
+7. Generates reasoning
+8. Updates memory
+
+---------------------------------------------------
+REQUIRED AGENTS
+---------------------------------------------------
+
+Create these agents:
+
+1. OCR Agent
+2. Vendor Memory Agent
+3. Risk Agent
+4. Approval Routing Agent
+5. Explanation Agent
+6. Memory Writer Agent
+
+Each agent must:
+
+- have isolated responsibility
+- have typed interfaces
+- produce structured output
+- be independently testable
+
+---------------------------------------------------
+OCR AGENT
+---------------------------------------------------
+
+Responsibilities:
+
+- PDF upload
+- Image upload
+- Manual entry
+
+Extract:
+
+- Vendor Name
+- Invoice Number
+- Invoice Date
+- Amount
+- Tax
+- Due Date
+- Payment Terms
+
+Return structured JSON.
+
+---------------------------------------------------
+VENDOR MEMORY AGENT
+---------------------------------------------------
+
+Retrieve:
+
+- vendor history
+- dispute history
+- exception history
+- approval history
+- payment behavior
+
+Generate:
+
+Vendor Intelligence Summary
+
+---------------------------------------------------
+RISK AGENT
+---------------------------------------------------
+
+Calculate:
+
+Low Risk
+Medium Risk
+High Risk
+
+Factors:
+
+- amount
+- vendor reputation
+- dispute frequency
+- duplicate invoice similarity
+- exception history
+
+Return:
+
+- risk score
+- confidence score
+- reasons
+
+---------------------------------------------------
+ROUTING AGENT
+---------------------------------------------------
+
+Determine:
+
+Approve
+Reject
+Flag
+Manager Review
+CFO Review
+
+Support:
+
+Hybrid Mode
+Autonomous Mode
+
+---------------------------------------------------
+EXPLANATION AGENT
+---------------------------------------------------
+
+Generate:
+
+Human-readable explanation.
+
+Example:
+
+"GlobalTech has produced three similar tax disputes during the last twelve months. This invoice amount exceeds the historical approval threshold and resembles previously disputed invoices. CFO review is recommended."
+
+---------------------------------------------------
+MEMORY WRITER AGENT
+---------------------------------------------------
+
+Store:
+
+- decisions
+- disputes
+- approvals
+- exceptions
+- notes
+
+Update vendor profile.
+
+---------------------------------------------------
+REQUIRED SCREENS
+---------------------------------------------------
+
+1. Dashboard
+
+Show:
+
+- Total invoices
+- Risk distribution
+- Vendor statistics
+- Exception trends
+- Approval metrics
+
+---------------------------------------------------
+
+2. Invoice Inbox
+
+Show:
+
+- uploaded invoices
+- status
+- risk
+- assigned reviewer
+
+---------------------------------------------------
+
+3. Invoice Analysis Screen
+
+Show:
+
+- invoice preview
+- extracted data
+- vendor memory
+- risk score
+- agent reasoning
+- recommended action
+
+---------------------------------------------------
+
+4. Vendor Intelligence Dashboard
+
+Show:
+
+- trust score
+- dispute rate
+- approval history
+- exception history
+- payment behavior
+
+---------------------------------------------------
+
+5. Memory Explorer
+
+Show:
+
+- all stored memories
+- exception timeline
+- dispute timeline
+- vendor timeline
+- similarity search
+
+---------------------------------------------------
+
+6. Settings
+
+Show:
+
+- Hybrid Mode
+- Autonomous Mode
+- Approval Thresholds
+
+---------------------------------------------------
+SUPABASE SCHEMA
+---------------------------------------------------
+
+Generate complete schema.
+
+Required tables:
+
+vendors
+invoices
+exceptions
+decisions
+memory_events
+agent_runs
+
+Generate:
+
+- foreign keys
+- indexes
+- constraints
+
+---------------------------------------------------
+SEED DATA
+---------------------------------------------------
+
+Generate:
+
+Vendor 1:
+GlobalTech
+
+History:
+- tax mismatch
+- duplicate invoice
+- dispute history
+
+Vendor 2:
+Swift Logistics
+
+History:
+- delayed payment
+
+Vendor 3:
+InfraCore
+
+History:
+- clean record
+
+Generate at least:
+
+30 invoices
+20 memory events
+15 exceptions
+
+---------------------------------------------------
+UI REQUIREMENTS
+---------------------------------------------------
+
+Enterprise-grade.
+
+Design inspiration:
+
+Stripe
+Linear
+Ramp
+Brex
+Mercury
+
+Requirements:
+
+- dark mode
+- glassmorphism
+- smooth transitions
+- risk badges
+- animated states
+- command palette
+- modern cards
+- responsive
+
+---------------------------------------------------
+OUTPUT REQUIREMENTS
+---------------------------------------------------
+
+Before coding:
+
+Phase 1:
+Generate architecture.
+
+Phase 2:
+Generate folder structure.
+
+Phase 3:
+Generate database schema.
+
+Phase 4:
+Generate API specification.
+
+Phase 5:
+Generate implementation plan.
+
+Only after completing all planning phases begin implementation.
+
+At the end provide:
+
+- architecture document
+- folder tree
+- schema
+- APIs
+- implementation status
+- remaining tasks
+
+DO NOT SKIP ANY PHASE.

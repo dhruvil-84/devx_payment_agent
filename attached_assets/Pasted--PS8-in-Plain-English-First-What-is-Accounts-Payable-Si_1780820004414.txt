@@ -1,0 +1,98 @@
+## PS8 in Plain English
+
+### First, What is "Accounts Payable"?
+
+Simple: **A company receives bills (invoices) from vendors and needs to pay them.**
+
+```
+Vendor supplies goods/service  →  Sends invoice  →  Company pays
+```
+
+That's it. Accounts Payable = **"We owe money, let's pay it."**
+
+---
+
+### What's the REAL Problem?
+
+Imagine a company receives **100+ invoices every day** from different vendors. A finance person has to manually:
+
+- ✅ Check if the amount is correct
+- ✅ Get the right person to approve it
+- ✅ Decide when to pay
+- ✅ Handle disputes from vendors
+
+And the same **problems keep happening again and again** — but nobody wrote them down anywhere. That knowledge lives only in people's heads.
+
+> Example: Every time Vendor "GlobalTech" sends an invoice above ₹2 lakh, they always put wrong tax numbers. The finance guy Ramesh knows this — but Ramesh is on leave today. Chaos happens.
+
+---
+
+### What the Problem Statement is Asking Us to Build
+
+An AI agent that **remembers everything** and gets smarter over time.
+
+Think of it as hiring a **super-experienced finance assistant** who:
+
+**1. Remembers every vendor's behavior**
+```
+GlobalTech  →  Always disputes invoices > ₹2L
+SwiftLog    →  Always pays late, needs reminders
+InfraCore   →  Reliable, never had issues
+```
+
+**2. Remembers what happened before (exceptions)**
+```
+March 14  →  GlobalTech disputed ₹3.2L invoice → took 3 weeks to resolve
+June 2    →  Same vendor, same issue
+August 9  →  Same again
+```
+
+**3. Uses that memory to make smart decisions automatically**
+
+When a **new invoice from GlobalTech for ₹2.8L** arrives today:
+
+> 🤖 Agent says: *"Flag this for CFO review immediately. GlobalTech has disputed 3 similar invoices this year. Don't process until verified."*
+
+Without memory, someone manually reads the invoice → approves it → dispute happens → 3 weeks wasted.
+
+**With memory → 2 minutes. Problem avoided.**
+
+---
+
+### The 3 Core Things We Need to Show
+
+```
+1. MEMORY      →  Agent remembers vendors, past invoices, past problems
+2. LEARNING    →  Agent recognizes patterns ("this vendor always does X")
+3. AUTOMATION  →  Agent recommends or auto-decides what to do next
+```
+
+---
+
+### What Our App Will Look Like
+
+| Screen | What it Does |
+|---|---|
+| **Vendor Dashboard** | Shows all vendors with their behavior profile |
+| **Invoice Inbox** | New invoices coming in |
+| **Agent Analysis** | AI reads the invoice + vendor history → gives recommendation |
+| **Exception Log** | History of all past problems, stored as memory |
+
+---
+
+### The "Wow" Demo Moment
+
+1. Show vendor **GlobalTech** has a history of disputes
+2. Submit a **new invoice from GlobalTech**
+3. Agent instantly says: *"⚠️ High risk — this vendor has disputed similar invoices 3 times. Recommend CFO approval before processing."*
+4. Judges see **memory working live**
+
+---
+
+### One Line Summary
+
+> **Build an AI that acts like a senior finance employee who never forgets — it remembers every vendor, every past problem, and uses that knowledge to handle new invoices smarter and faster.**
+
+---
+
+Ready to start building? I'll generate the full codebase right now.
