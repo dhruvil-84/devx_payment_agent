@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: api-server
+    env: node
+    buildCommand: pnpm install && pnpm --filter @workspace/api-server run build
+    startCommand: pnpm --filter @workspace/api-server run start
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: ap-agent
+    env: static
+    buildCommand: pnpm install && pnpm --filter @workspace/ap-agent run build
+    staticPublishPath: ./artifacts/ap-agent/dist
