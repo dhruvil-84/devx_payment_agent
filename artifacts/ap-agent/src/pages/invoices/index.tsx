@@ -9,10 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search } from "lucide-react";
 
+function getInitialFilter(name: string, fallback = "all"): string {
+  if (typeof window === "undefined") return fallback;
+  return new URLSearchParams(window.location.search).get(name) ?? fallback;
+}
+
 export default function InvoicesPage() {
   const [, setLocation] = useLocation();
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [riskFilter, setRiskFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState(() => getInitialFilter("status"));
+  const [riskFilter, setRiskFilter] = useState(() => getInitialFilter("riskLevel"));
   const [search, setSearch] = useState("");
 
   const { data: invoices = [], isLoading } = useListInvoices(
@@ -55,6 +60,8 @@ export default function InvoicesPage() {
             <SelectItem value="pending">Pending</SelectItem>
             <SelectItem value="approved">Approved</SelectItem>
             <SelectItem value="flagged">Flagged</SelectItem>
+            <SelectItem value="manager_review">Manager Review</SelectItem>
+            <SelectItem value="cfo_review">CFO Review</SelectItem>
             <SelectItem value="rejected">Rejected</SelectItem>
           </SelectContent>
         </Select>

@@ -1,8 +1,7 @@
 import { db, vendorsTable, invoicesTable, exceptionsTable, decisionsTable, memoryEventsTable, settingsTable } from "@workspace/db";
-import { logger } from "../../artifacts/api-server/src/lib/logger";
 
 async function seed() {
-  logger.info("Seeding database...");
+  console.info("Seeding database...");
 
   // Settings
   await db.delete(settingsTable);
@@ -192,10 +191,10 @@ async function seed() {
     { vendorId: mediaPro.id, eventType: "vendor_review", content: "MediaPro placed under review status pending resolution of 2 active disputes totaling ₹57,200. No new POs until disputes resolved.", importance: "10", tags: "review,hold,disputes" },
   ]);
 
-  logger.info("Seed complete!");
+  console.info("Seed complete!");
 }
 
 seed().catch((err) => {
-  logger.error({ err }, "Seed failed");
+  console.error("Seed failed", err);
   process.exit(1);
 });

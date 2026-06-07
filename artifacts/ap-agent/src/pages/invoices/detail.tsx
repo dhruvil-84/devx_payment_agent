@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import {
   useGetInvoice, useAnalyzeInvoice, useGetVendorIntelligence,
-  getGetInvoiceQueryKey, getGetVendorIntelligenceQueryKey
+  useUpdateInvoice, getGetInvoiceQueryKey, getGetVendorIntelligenceQueryKey,
+  getListInvoicesQueryKey, getGetDashboardStatsQueryKey
 } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Shell } from "@/components/layout/Shell";
@@ -11,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Cpu, AlertTriangle, CheckCircle, Brain, Target } from "lucide-react";
+import { ArrowLeft, Cpu, AlertTriangle, CheckCircle, Brain, Target, Flag, XCircle } from "lucide-react";
 
 interface Props { id: number }
 
@@ -23,7 +24,7 @@ interface AnalysisResult {
   recommendation: string;
   agentDecision: string;
   riskFactors: string[];
-  memoryContext: string[];
+  memoryContext?: string[];
   vendorIntelligence?: string | null;
 }
 
@@ -55,8 +56,38 @@ export default function InvoiceDetailPage({ id }: Props) {
     }
   });
 
+  const updateInvoice = useUpdateInvoice({
+    mutation: {
+      onSuccess: (updated) => {
+        qc.invalidateQueries({ queryKey: getGetInvoiceQueryKey(id) });
+        qc.invalidateQueries({ queryKey: getListInvoicesQueryKey() });
+        qc.invalidateQueries({ queryKey: getGetDashboardStatsQueryKey() });
+        toast({
+          title: "Invoice updated",
+          description: `${updated.invoiceNumber} is now ${updated.status.replace(/_/g, " ")}.`,
+        });
+      },
+      onError: () => toast({ title: "Update failed", description: "Could not update invoice status.", variant: "destructive" }),
+    },
+  });
+
   const handleAnalyze = () => {
     analyze.mutate({ id });
+  };
+
+  const handleStatusChange = (status: string) => {
+    const assignedReviewer =
+      status === "cfo_review" ? "CFO" :
+      status === "manager_review" ? "AP Manager" :
+      null;
+
+    updateInvoice.mutate({
+      id,
+      data: {
+        status,
+        ...(assignedReviewer ? { assignedReviewer } : {}),
+      },
+    });
   };
 
   if (isLoading) {
@@ -103,6 +134,48 @@ export default function InvoiceDetailPage({ id }: Props) {
                 <Badge className={`text-xs px-2.5 py-1 border font-medium ${riskBg(invoice.riskLevel)}`}>{invoice.riskLevel} risk</Badge>
               </div>
             </div>
+            <div className="grid grid-cols-4 gap-2 mb-5">
+              <Button
+                data-testid="button-approve-invoice"
+                size="sm"
+                variant={invoice.status === "approved" ? "secondary" : "outline"}
+                onClick={() => handleStatusChange("approved")}
+                disabled={updateInvoice.isPending || invoice.status === "approved"}
+                className="gap-2 bg-white/70"
+              >
+                <CheckCircle className="w-4 h-4" /> Approve
+              </Button>
+              <Button
+                data-testid="button-manager-review-invoice"
+                size="sm"
+                variant={invoice.status === "manager_review" ? "secondary" : "outline"}
+                onClick={() => handleStatusChange("manager_review")}
+                disabled={updateInvoice.isPending || invoice.status === "manager_review"}
+                className="gap-2 bg-white/70"
+              >
+                <Flag className="w-4 h-4" /> Manager
+              </Button>
+              <Button
+                data-testid="button-cfo-review-invoice"
+                size="sm"
+                variant={invoice.status === "cfo_review" ? "secondary" : "outline"}
+                onClick={() => handleStatusChange("cfo_review")}
+                disabled={updateInvoice.isPending || invoice.status === "cfo_review"}
+                className="gap-2 bg-white/70"
+              >
+                <AlertTriangle className="w-4 h-4" /> CFO
+              </Button>
+              <Button
+                data-testid="button-reject-invoice"
+                size="sm"
+                variant={invoice.status === "rejected" ? "secondary" : "outline"}
+                onClick={() => handleStatusChange("rejected")}
+                disabled={updateInvoice.isPending || invoice.status === "rejected"}
+                className="gap-2 bg-white/70"
+              >
+                <XCircle className="w-4 h-4" /> Reject
+              </Button>
+            </div>
             <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">Amount</p>
@@ -125,6 +198,10 @@ export default function InvoiceDetailPage({ id }: Props) {
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">Payment Terms</p>
                 <p className="font-medium text-foreground mt-0.5">{invoice.paymentTerms ?? "—"}</p>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wide">Reviewer</p>
+                <p className="font-medium text-foreground mt-0.5">{invoice.assignedReviewer ?? "Unassigned"}</p>
               </div>
               {invoice.riskScore != null && (
                 <div>
@@ -210,7 +287,7 @@ export default function InvoiceDetailPage({ id }: Props) {
                   <div>
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1.5">Memory Context</p>
                     <div className="space-y-1.5">
-                      {analysisResult.memoryContext.map((m, i) => (
+                      {(analysisResult.memoryContext ?? []).map((m, i) => (
                         <div key={i} className="flex items-start gap-2 text-sm text-foreground bg-blue-50/60 rounded-lg p-2.5">
                           <Brain className="w-3.5 h-3.5 text-blue-500 mt-0.5 shrink-0" />
                           {m}
