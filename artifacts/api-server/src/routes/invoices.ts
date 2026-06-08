@@ -253,7 +253,7 @@ router.get("/dashboard/stats", async (_req, res): Promise<void> => {
     .slice(-6)
     .map(([month, count]) => ({ month, count }));
 
-  const dashboardInvoiceValue = 100000;
+  const dashboardInvoiceValue = invoices.reduce((sum, i) => sum + Number(i.amount), 0);
 
   res.json({
     totalInvoices: invoices.length,
