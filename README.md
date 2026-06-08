@@ -2,6 +2,10 @@
 
 AI-powered Accounts Payable workflow application for invoice intake, vendor intelligence, exception tracking, decision audit trails, and agent-assisted risk analysis.
 
+## 🌐 Live Public URLs
+- **Web App (Frontend)**: https://ap-agent-frontend.onrender.com
+- **API Server (Backend)**: https://ap-agent-api.onrender.com
+
 ## Overview
 
 This repository is a `pnpm` workspace that contains:
